@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+    <h2>Dados do Produto</h2>
+    <ul>
+    <li>Descrição: {{ produto.descricao|upper }}</li>
+     <li>Unidade: {{ produto.unidade.sigla|upper }}</li>
+    <li>Valor Unitário: {{ produto.valorUnitario|floatformat:2 }}</li>
+    </ul>
+{% endblock %}
