@@ -9,6 +9,8 @@ def home(request):
     return render(request,'base.html')
 
 #Funções produto
+def home(request):
+    return render(request,'base.html')
 def exibirproduto(request,id_produto):
 
     produto=Produto.objects.get(id=id_produto)
@@ -24,7 +26,6 @@ def produto_list(request):
         criterio = ""
     dados= {'produtos':produtos, 'criterio':criterio}
     return render(request,'produto/produto_list.html',dados)
-
 
 def produto_new(request):
     if(request.method=="POST"):
@@ -54,17 +55,18 @@ def produto_delete(request,pk):
     produto.delete()
     return redirect('produto_list')
 
+
 #Funções cliente
 def cliente_list(request):
-    criterio = request.GET.get('criterio')
+    criterio = request.GET.get('clientes')
 
     if(criterio):
-        produtos = Produto.objects.filter(descricao__contains=criterio)
+        clientes = Produto.objects.filter(descricao__contains=criterio)
     else:
-        produtos = Produto.objects.all().order_by('descricao')
+        clientes = Produto.objects.all().order_by('descricao')
         criterio = ""
-    dados= {'produtos':produtos, 'criterio':criterio}
-    return render(request,'produto/produto_list.html',dados)
+    dados= {'clientes':clientes, 'criterio':criterio}
+    return render(request, 'cliente/../templates/cliente/cliente_list.html', dados)
 
 
 def cliente_new(request):
@@ -72,28 +74,28 @@ def cliente_new(request):
         form=ProdutoForm(request.POST)
         if(form.is_valid()):
             form.save()
-            return redirect('produto_list')
+            return redirect('cliente_list')
     else:
         form = ProdutoForm()
         dados = {"form":form}
-        return  render(request,'produto/produto_form.html',dados)
+        return  render(request, 'cliente/../templates/cliente/cliente_form.html', dados)
 
 def cliente_update(request, pk):
-    produto = Produto.objects.get(id=pk)
+    cliente = Produto.objects.get(id=pk)
     if(request.method=="POST"):
-        form=ProdutoForm(request.POST, instance=produto)
+        form=ProdutoForm(request.POST, instance=cliente)
         if(form.is_valid()):
             form.save()
-            return redirect('produto_list')
+            return redirect('cliente_list')
     else:
-        form = ProdutoForm(instance=produto)
+        form = ProdutoForm(instance=cliente)
         dados = {"form":form}
-        return  render(request,'produto/produto_form.html',dados)
+        return  render(request, 'cliente/../templates/cliente/cliente_form.html', dados)
 
 def cliente_delete(request,pk):
-    produto=Produto.objects.get(id=pk)
-    produto.delete()
-    return redirect('produto_list')
+    cliente=Produto.objects.get(id=pk)
+    cliente.delete()
+    return redirect('cliente_list')
 
 
 #Função funcionário
@@ -101,12 +103,12 @@ def funcionario_list(request):
     criterio = request.GET.get('criterio')
 
     if(criterio):
-        produtos = Produto.objects.filter(descricao__contains=criterio)
+        funcionarios = Produto.objects.filter(descricao__contains=criterio)
     else:
-        produtos = Produto.objects.all().order_by('descricao')
+        funcionarios = Produto.objects.all().order_by('nome')
         criterio = ""
-    dados= {'produtos':produtos, 'criterio':criterio}
-    return render(request,'produto/produto_list.html',dados)
+    dados= {'funcionarios':funcionarios, 'criterio':criterio}
+    return render(request, 'funcionario/../templates/funcionario/funcionario_list.html', dados)
 
 
 def funcionario_new(request):
@@ -114,28 +116,28 @@ def funcionario_new(request):
         form=ProdutoForm(request.POST)
         if(form.is_valid()):
             form.save()
-            return redirect('produto_list')
+            return redirect('funcionario_list')
     else:
         form = ProdutoForm()
         dados = {"form":form}
-        return  render(request,'produto/produto_form.html',dados)
+        return  render(request, 'produto/../templates/funcionario/funcionario_form.html', dados)
 
 def funcionario_update(request, pk):
-    produto = Produto.objects.get(id=pk)
+    funcionario = Produto.objects.get(id=pk)
     if(request.method=="POST"):
-        form=ProdutoForm(request.POST, instance=produto)
+        form=ProdutoForm(request.POST, instance=funcionario)
         if(form.is_valid()):
             form.save()
-            return redirect('produto_list')
+            return redirect('funcionario_list')
     else:
-        form = ProdutoForm(instance=produto)
+        form = ProdutoForm(instance=funcionario)
         dados = {"form":form}
-        return  render(request,'produto/produto_form.html',dados)
+        return  render(request, 'funcionario/../templates/funcionario/funcionario_form.html', dados)
 
 def funcionario_delete(request,pk):
-    produto=Produto.objects.get(id=pk)
-    produto.delete()
-    return redirect('produto_list')
+    funcionario=Produto.objects.get(id=pk)
+    funcionario.delete()
+    return redirect('funcionario_list')
 
 
 
