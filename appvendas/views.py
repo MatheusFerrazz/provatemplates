@@ -3,10 +3,12 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from appvendas.forms import *
 from appvendas.models import *
-# Create your views here.
+# Create your views here..
 
 def home(request):
     return render(request,'base.html')
+
+#Funções produto
 def exibirproduto(request,id_produto):
 
     produto=Produto.objects.get(id=id_produto)
@@ -51,6 +53,94 @@ def produto_delete(request,pk):
     produto=Produto.objects.get(id=pk)
     produto.delete()
     return redirect('produto_list')
+
+#Funções cliente
+def cliente_list(request):
+    criterio = request.GET.get('criterio')
+
+    if(criterio):
+        produtos = Produto.objects.filter(descricao__contains=criterio)
+    else:
+        produtos = Produto.objects.all().order_by('descricao')
+        criterio = ""
+    dados= {'produtos':produtos, 'criterio':criterio}
+    return render(request,'produto/produto_list.html',dados)
+
+
+def cliente_new(request):
+    if(request.method=="POST"):
+        form=ProdutoForm(request.POST)
+        if(form.is_valid()):
+            form.save()
+            return redirect('produto_list')
+    else:
+        form = ProdutoForm()
+        dados = {"form":form}
+        return  render(request,'produto/produto_form.html',dados)
+
+def cliente_update(request, pk):
+    produto = Produto.objects.get(id=pk)
+    if(request.method=="POST"):
+        form=ProdutoForm(request.POST, instance=produto)
+        if(form.is_valid()):
+            form.save()
+            return redirect('produto_list')
+    else:
+        form = ProdutoForm(instance=produto)
+        dados = {"form":form}
+        return  render(request,'produto/produto_form.html',dados)
+
+def cliente_delete(request,pk):
+    produto=Produto.objects.get(id=pk)
+    produto.delete()
+    return redirect('produto_list')
+
+
+#Função funcionário
+def funcionario_list(request):
+    criterio = request.GET.get('criterio')
+
+    if(criterio):
+        produtos = Produto.objects.filter(descricao__contains=criterio)
+    else:
+        produtos = Produto.objects.all().order_by('descricao')
+        criterio = ""
+    dados= {'produtos':produtos, 'criterio':criterio}
+    return render(request,'produto/produto_list.html',dados)
+
+
+def funcionario_new(request):
+    if(request.method=="POST"):
+        form=ProdutoForm(request.POST)
+        if(form.is_valid()):
+            form.save()
+            return redirect('produto_list')
+    else:
+        form = ProdutoForm()
+        dados = {"form":form}
+        return  render(request,'produto/produto_form.html',dados)
+
+def funcionario_update(request, pk):
+    produto = Produto.objects.get(id=pk)
+    if(request.method=="POST"):
+        form=ProdutoForm(request.POST, instance=produto)
+        if(form.is_valid()):
+            form.save()
+            return redirect('produto_list')
+    else:
+        form = ProdutoForm(instance=produto)
+        dados = {"form":form}
+        return  render(request,'produto/produto_form.html',dados)
+
+def funcionario_delete(request,pk):
+    produto=Produto.objects.get(id=pk)
+    produto.delete()
+    return redirect('produto_list')
+
+
+
+
+#Função unidade
 def unidade_list(request):
     criterio=request.GET.get('criterio')
     if (criterio):
