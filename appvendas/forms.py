@@ -25,6 +25,6 @@ class CargoForm(ModelForm):
 class FuncionarioForm(ModelForm):
     class Meta:
         model=Funcionario
-        fields=('__all__')
+        fields=('nome','telefone','email','cargo','matricula')
 
 

@@ -59,7 +59,7 @@ def produto_update(request, pk):
             return redirect('produto_list')
     else:
         form = ProdutoForm(instance=produto)
-        dados = {"form":form}
+        dados = {"form":form,'produto':produto}
         return  render(request,'produto/produto_form.html',dados)
 
 def produto_delete(request,pk):
@@ -101,7 +101,7 @@ def cliente_update(request, pk):
             return redirect('cliente_list')
     else:
         form = ClienteForm(instance=cliente)
-        dados = {"form":form}
+        dados = {"form":form,'cliente':cliente}
         return  render(request, 'cliente/cliente_form.html', dados)
 
 def cliente_delete(request,pk):
@@ -109,7 +109,7 @@ def cliente_delete(request,pk):
     cliente.delete()
     return redirect('cliente_list')
 
-#Funções funcionário
+# Funções funcionário
 
 def funcionario_list(request):
     criterio = request.GET.get('criterio')
@@ -143,7 +143,7 @@ def funcionario_update(request, pk):
             return redirect('funcionario_list')
     else:
         form = FuncionarioForm(instance=funcionario)
-        dados = {"form":form}
+        dados = {"form":form, 'funcionario':funcionario}
         return  render(request, 'funcionario/funcionario_form.html', dados)
 
 def funcionario_delete(request,pk):
@@ -151,7 +151,7 @@ def funcionario_delete(request,pk):
     funcionario.delete()
     return redirect('funcionario_list')
 
-#Funções unidade
+# Funções unidade
 
 def unidade_list(request):
     criterio=request.GET.get('criterio')
@@ -197,7 +197,7 @@ def unidade_update(request,pk):
             return redirect('unidade_list')
     else:
         form=UnidadeForm(instance=unidade)
-        dados={'form':form}
+        dados={'form':form,'unidade':unidade}
         return render(request, 'unidade/unidade_form.html', dados)
 
 def unidade_delete(request,pk):
