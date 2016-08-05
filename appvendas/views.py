@@ -11,6 +11,7 @@ def home(request):
 #Funções produto
 def home(request):
     return render(request,'base.html')
+
 def exibirproduto(request,id_produto):
 
     produto=Produto.objects.get(id=id_produto)
@@ -103,7 +104,7 @@ def funcionario_list(request):
     criterio = request.GET.get('criterio')
 
     if(criterio):
-        funcionarios = Funcionario.objects.filter(descricao__contains=criterio)
+        funcionarios = Funcionario.objects.filter(nome__contains=criterio)
     else:
         funcionarios = Funcionario.objects.all().order_by('nome')
         criterio = ""
