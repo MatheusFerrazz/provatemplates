@@ -98,51 +98,49 @@ def cliente_delete(request,pk):
     return redirect('cliente_list')
 
 
-#Função funcionário
+#Funções funcionário
 def funcionario_list(request):
     criterio = request.GET.get('criterio')
 
     if(criterio):
-        funcionarios = Produto.objects.filter(descricao__contains=criterio)
+        funcionarios = Funcionario.objects.filter(descricao__contains=criterio)
     else:
-        funcionarios = Produto.objects.all().order_by('nome')
+        funcionarios = Funcionario.objects.all().order_by('nome')
         criterio = ""
     dados= {'funcionarios':funcionarios, 'criterio':criterio}
-    return render(request, 'funcionario/../templates/funcionario/funcionario_list.html', dados)
+    return render(request,'funcionario/funcionario_list.html', dados)
 
 
 def funcionario_new(request):
     if(request.method=="POST"):
-        form=ProdutoForm(request.POST)
+        form=FuncionarioForm(request.POST)
         if(form.is_valid()):
             form.save()
             return redirect('funcionario_list')
     else:
-        form = ProdutoForm()
+        form = FuncionarioForm()
         dados = {"form":form}
-        return  render(request, 'produto/../templates/funcionario/funcionario_form.html', dados)
+        return  render(request, 'funcionario/funcionario_form.html', dados)
 
 def funcionario_update(request, pk):
-    funcionario = Produto.objects.get(id=pk)
+    funcionario = Funcionario.objects.get(id=pk)
     if(request.method=="POST"):
-        form=ProdutoForm(request.POST, instance=funcionario)
+        form=FuncionarioForm(request.POST, instance=funcionario)
         if(form.is_valid()):
             form.save()
             return redirect('funcionario_list')
     else:
-        form = ProdutoForm(instance=funcionario)
+        form = FuncionarioForm(instance=funcionario)
         dados = {"form":form}
-        return  render(request, 'funcionario/../templates/funcionario/funcionario_form.html', dados)
+        return  render(request, 'funcionario/funcionario_form.html', dados)
 
 def funcionario_delete(request,pk):
-    funcionario=Produto.objects.get(id=pk)
+    funcionario=Funcionario.objects.get(id=pk)
     funcionario.delete()
     return redirect('funcionario_list')
 
-
-
-
 #Função unidade
+
 def unidade_list(request):
     criterio=request.GET.get('criterio')
     if (criterio):
@@ -162,9 +160,11 @@ def unidade_list(request):
 
     dados={'unidades':unidades,'criterio':criterio,'paginator':paginator,'page_obj':unidades}
     return render(request, 'unidade/unidade_list.html', dados)
+
 def unidade_detail(request, pk):
     unidade=Unidade.objects.get(id=pk)
     return render(request, 'unidade/unidade_detail.html', {'unidade':unidade})
+
 def unidade_new(request):
     if (request.method=="POST"):
         form=UnidadeForm(request.POST)
@@ -175,6 +175,7 @@ def unidade_new(request):
         form=UnidadeForm()
         dados={'form':form}
         return render(request, 'unidade/unidade_form.html', dados)
+
 def unidade_update(request,pk):
     unidade=Unidade.objects.get(id=pk)
     if (request.method=="POST"):
@@ -186,30 +187,37 @@ def unidade_update(request,pk):
         form=UnidadeForm(instance=unidade)
         dados={'form':form}
         return render(request, 'unidade/unidade_form.html', dados)
+
 def unidade_delete(request,pk):
     unidade=Unidade.objects.get(id=pk)
     unidade.delete()
     return redirect('unidade_list')
+
 def listarvendas(request):
     vendas=Venda.objects.all()
     lista={'vendas':vendas}
     return render(request,'vendas.html',lista)
+
 def listarclientes(request):
     clientes=Cliente.objects.all().order_by('nome')
     lista={'clientes':clientes}
     return render(request,'clientes.html',lista)
+
 def exibircliente(request,idcliente):
     cliente=Cliente.objects.get(id=idcliente)
     contexto={'cliente':cliente}
     return render(request,'exibircliente.html',contexto)
+
 def listarcargos(request):
     cargos=Cargo.objects.all().order_by('descricao')
     lista={'cargos':cargos}
     return render(request,'cargos.html',lista)
+
 def listarfuncionrios(request):
     funcionarios=Funcionario.objects.all().order_by('nome')
     lista={'funcionarios':funcionarios}
     return render(request,'funcionarios.html',lista)
+
 def exibirfuncionario(request,idfuncionario):
     funcionario=Funcionario.objects.get(id=idfuncionario)
     contexto={'funcionario':funcionario}

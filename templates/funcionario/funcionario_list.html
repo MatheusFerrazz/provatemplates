@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block conteudo %}
-    <h2>Produtos</h2>
-    <p><a href="{% url 'produto_new' %}" class="btn btn-primary" >Criar Novo Produto</a></p>
+    <h2>Funcionários</h2>
+    <p><a href="{% url 'funcionario_new' %}" class="btn btn-primary" >Criar Novo Funcionário</a></p>
     <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'funcionario_list' %}">
         <div class="form-group">
             <label for="criterio">Descrição:</label>
@@ -11,16 +11,16 @@
     </form>
 <table class="table table-hover">
   <tr>
-    <th>Descrição</th>
-    <th>Unidade</th>
-    <th>Valor Unitário</th>
+      <th>Nome</th>
+      <th>Matrícula</th>
+      <th>Cargo</th>
       <th colspan="2">Operações</th>
   </tr>
     {% for funcionario in funcionarios %}
         <tr>
-            <td>{{ produto.descricao | upper }}</td>
-            <td>{{ produto.unidade.sigla }}</td>
-            <td>{{ produto.valorUnitario | floatformat:2 }}</td>
+            <td>{{ funcionario.nome | upper }}</td>
+            <td>{{ funcionario.matricula | upper }}</td>
+            <td>{{ funcionario.cargo }}</td>
             <td><a href="{%  url 'funcionario_update' funcionario.pk %}" class="btn btn-primary"> Atualizar</a></td>
             <td><a href="{%  url 'funcionario_delete' funcionario.pk %}" class="btn btn-danger"> Excluir</a></td>
         </tr>
