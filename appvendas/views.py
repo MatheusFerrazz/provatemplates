@@ -202,7 +202,7 @@ QUE DANADO É ISSO AQUI OMEEE ! ? ! ?
        _| |_
        \   /
         \_/
-
+'''
 def listarvendas(request):
     vendas=Venda.objects.all()
     lista={'vendas':vendas}
@@ -232,4 +232,3 @@ def exibirfuncionario(request,idfuncionario):
     funcionario=Funcionario.objects.get(id=idfuncionario)
     contexto={'funcionario':funcionario}
     return render(request,'exibirfuncionario.html',contexto)
-'''
