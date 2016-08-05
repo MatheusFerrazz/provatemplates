@@ -9,6 +9,7 @@ def home(request):
     return render(request,'base.html')
 
 #Funções produto
+
 def home(request):
     return render(request,'base.html')
 
@@ -56,50 +57,50 @@ def produto_delete(request,pk):
     produto.delete()
     return redirect('produto_list')
 
-
 #Funções cliente
+
 def cliente_list(request):
-    criterio = request.GET.get('clientes')
+    criterio = request.GET.get('criterio')
 
     if(criterio):
-        clientes = Produto.objects.filter(descricao__contains=criterio)
+        clientes = Cliente.objects.filter(nome__contains=criterio)
     else:
-        clientes = Produto.objects.all().order_by('descricao')
+        clientes = Cliente.objects.all().order_by('nome')
         criterio = ""
     dados= {'clientes':clientes, 'criterio':criterio}
-    return render(request, 'cliente/../templates/cliente/cliente_list.html', dados)
+    return render(request, 'cliente/cliente_list.html', dados)
 
 
 def cliente_new(request):
     if(request.method=="POST"):
-        form=ProdutoForm(request.POST)
+        form=ClienteForm(request.POST)
         if(form.is_valid()):
             form.save()
             return redirect('cliente_list')
     else:
-        form = ProdutoForm()
+        form = ClienteForm()
         dados = {"form":form}
-        return  render(request, 'cliente/../templates/cliente/cliente_form.html', dados)
+        return  render(request, 'cliente/cliente_form.html', dados)
 
 def cliente_update(request, pk):
-    cliente = Produto.objects.get(id=pk)
+    cliente = Cliente.objects.get(id=pk)
     if(request.method=="POST"):
-        form=ProdutoForm(request.POST, instance=cliente)
+        form=ClienteForm(request.POST, instance=cliente)
         if(form.is_valid()):
             form.save()
             return redirect('cliente_list')
     else:
-        form = ProdutoForm(instance=cliente)
+        form = ClienteForm(instance=cliente)
         dados = {"form":form}
-        return  render(request, 'cliente/../templates/cliente/cliente_form.html', dados)
+        return  render(request, 'cliente/cliente_form.html', dados)
 
 def cliente_delete(request,pk):
-    cliente=Produto.objects.get(id=pk)
+    cliente=Cliente.objects.get(id=pk)
     cliente.delete()
     return redirect('cliente_list')
 
-
 #Funções funcionário
+
 def funcionario_list(request):
     criterio = request.GET.get('criterio')
 
@@ -140,7 +141,7 @@ def funcionario_delete(request,pk):
     funcionario.delete()
     return redirect('funcionario_list')
 
-#Função unidade
+#Funções unidade
 
 def unidade_list(request):
     criterio=request.GET.get('criterio')
@@ -193,6 +194,14 @@ def unidade_delete(request,pk):
     unidade=Unidade.objects.get(id=pk)
     unidade.delete()
     return redirect('unidade_list')
+'''
+QUE DANADO É ISSO AQUI OMEEE ! ? ! ?
+         _
+        | |
+        | |
+       _| |_
+       \   /
+        \_/
 
 def listarvendas(request):
     vendas=Venda.objects.all()
@@ -223,3 +232,4 @@ def exibirfuncionario(request,idfuncionario):
     funcionario=Funcionario.objects.get(id=idfuncionario)
     contexto={'funcionario':funcionario}
     return render(request,'exibirfuncionario.html',contexto)
+'''

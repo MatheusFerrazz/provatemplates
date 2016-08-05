@@ -12,6 +12,11 @@ class ProdutoForm(ModelForm):
         model= Produto
         fields=('descricao','valorUnitario','unidade')
 
+class ClienteForm(ModelForm):
+    class Meta:
+        model=Cliente
+        fields=('__all__')
+
 class CargoForm(ModelForm):
     class Meta:
         model= Cargo
