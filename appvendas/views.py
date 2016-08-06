@@ -77,7 +77,17 @@ def cliente_list(request):
     else:
         clientes = Cliente.objects.all().order_by('nome')
         criterio = ""
-    dados= {'clientes':clientes, 'criterio':criterio}
+    # Cria o mecanimos de paginação
+    paginator = Paginator(clientes, 2)
+    page = request.GET.get('page')
+    try:
+        clientes = paginator.page(page)
+    except PageNotAnInteger:
+        clientes = paginator.page(1)
+    except EmptyPage:
+        clientes = paginator.page(paginator.num_pages)
+
+    dados= {'clientes':clientes, 'criterio':criterio,'paginator':paginator,'page_obj':clientes}
     return render(request, 'cliente/cliente_list.html', dados)
 
 
@@ -119,7 +129,17 @@ def funcionario_list(request):
     else:
         funcionarios = Funcionario.objects.all().order_by('nome')
         criterio = ""
-    dados= {'funcionarios':funcionarios, 'criterio':criterio}
+    # Cria o mecanimos de paginação
+    paginator = Paginator(funcionarios, 2)
+    page = request.GET.get('page')
+    try:
+        funcionarios = paginator.page(page)
+    except PageNotAnInteger:
+        funcionarios = paginator.page(1)
+    except EmptyPage:
+        funcionarios = paginator.page(paginator.num_pages)
+
+    dados= {'funcionarios':funcionarios, 'criterio':criterio, 'paginator':paginator,'page_obj':funcionarios}
     return render(request,'funcionario/funcionario_list.html', dados)
 
 
@@ -204,6 +224,57 @@ def unidade_delete(request,pk):
     unidade=Unidade.objects.get(id=pk)
     unidade.delete()
     return redirect('unidade_list')
+
+# Funções Cargo
+
+def cargo_list(request):
+    criterio=request.GET.get('criterio')
+    if (criterio):
+        cargos=Cargo.objects.filter(descricao__contains=criterio)
+    else:
+        cargos=Cargo.objects.all().order_by('descricao')
+        criterio=""
+    #Cria o mecanimos de paginação
+    paginator=Paginator(cargos,2)
+    page=request.GET.get('page')
+    try:
+        cargos=paginator.page(page)
+    except PageNotAnInteger:
+        cargos=paginator.page(1)
+    except EmptyPage:
+        cargos=paginator.page(paginator.num_pages)
+
+    dados={'cargos':cargos,'criterio':criterio,'paginator':paginator,'page_obj':cargos}
+    return render(request, 'cargo/cargo_list.html', dados)
+
+def cargo_new(request):
+    if (request.method=="POST"):
+        form=CargoForm(request.POST)
+        if (form.is_valid()):
+            form.save()
+            return redirect('cargo_list')
+    else:
+        form=CargoForm()
+        dados={'form':form}
+        return render(request, 'cargo/cargo_form.html', dados)
+
+def cargo_update(request,pk):
+    cargo=Cargo.objects.get(id=pk)
+    if (request.method=="POST"):
+        form=CargoForm(request.POST,instance=cargo)
+        if (form.is_valid()):
+            form.save()
+            return redirect('cargo_list')
+    else:
+        form=UnidadeForm(instance=cargo)
+        dados={'form':form,'cargo':cargo}
+        return render(request, 'cargo/cargo_form.html', dados)
+
+def cargo_delete(request,pk):
+    cargo=Cargo.objects.get(id=pk)
+    cargo.delete()
+    return redirect('cargo_list')
+
 '''
 QUE DANADO É ISSO AQUI OMEEE ! ? ! ?
          _
