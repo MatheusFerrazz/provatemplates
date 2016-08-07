@@ -287,7 +287,7 @@ def cargo_update(request,pk):
             form.save()
             return redirect('cargo_list')
     else:
-        form=UnidadeForm(instance=cargo)
+        form=CargoForm(instance=cargo)
         dados={'form':form,'cargo':cargo}
         return render(request, 'cargo/cargo_form.html', dados)
 
