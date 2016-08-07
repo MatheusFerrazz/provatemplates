@@ -3,25 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Sistema de Vendas</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-
-
-    <script source="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load staticfiles %}
+    <link href="{% static 'bootstrap-bare/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+   <style>
+    body {
+        padding-top: 70px;
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    }
+    </style>
 </head>
 <body>
-    <h2>Sistema de Vendas</h2>
-    <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="{% url 'home' %}"> Home </a></li>
-        <li role="presentation"><a href="{% url 'unidade_list' %}"> Unidades </a></li>
-        <li role="presentation"><a href="{% url 'cargo_list' %}"> Cargos</a></li>
-        <li role="presentation"><a href="{% url 'produto_list' %}"> Produtos</a></li>
-        <li role="presentation"><a href="{% url 'cliente_list' %}"> Clientes</a></li>
-        <li role="presentation"><a href="{% url 'funcionario_list' %}"> Funcionários</a></li>
-        <li role="presentation"><a href="{% url 'vendas' %}"> Vendas</a></li>
-        <li role="presentation"><a href="{% url 'admin:index' %}"> Cadastros</a></li>
-    </ul>
+ <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Sistema de Vendas</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'home' %}"> Home </a></li>
+                    <li><a href="{% url 'unidade_list' %}"><span class="glyphicon glyphicon-asterisk"></span> Unidades </a></li>
+                    <li><a href="{% url 'cargos' %}"><span class="glyphicon glyphicon-plane"></span> Cargos</a></li>
+                    <li><a href="{% url 'produto_list' %}"><span class="glyphicon glyphicon-shopping-cart"></span> Produtos</a></li>
+                    <li><a href="{% url 'cliente_list' %}"><span class="glyphicon glyphicon-user"></span> Clientes</a></li>
+                    <li><a href="{% url 'funcionario_list' %}"><span class="glyphicon glyphicon-lock"></span> Funcionários</a></li>
+                    <li><a href="{% url 'vendas' %}"><span class="glyphicon glyphicon-folder-open"></span>  Vendas</a></li>
+                    <li><a href="{% url 'admin:index' %}"><span class="glyphicon glyphicon-list-alt"></span> Cadastros</a>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
     {% block conteudo %}
         <h3>Bem vindo ao sistema de controle de vendas</h3>
     {% endblock %}
+
+    <script src="{% static 'bootstrap-bare/js/jquery.js' %}" ></script>
+
+    <script src="{% static 'bootstrap-bare/js/bootstrap.min.js' %}" ></script>
+
 </body>
 </html>
