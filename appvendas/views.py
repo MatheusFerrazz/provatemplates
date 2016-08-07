@@ -1,7 +1,11 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
+from django.db import IntegrityError
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from appvendas.forms import *
+from django.forms import formset_factory
+from django.http.request import QueryDict
+from django.contrib import messages
 from appvendas.models import *
 # Create your views here..
 
@@ -64,7 +68,11 @@ def produto_update(request, pk):
 
 def produto_delete(request,pk):
     produto=Produto.objects.get(id=pk)
-    produto.delete()
+    try:
+        produto.delete()
+    except IntegrityError:
+        messages.error(request, 'Produto Vinculado a uma Venda')
+        return redirect('produto_list')
     return redirect('produto_list')
 
 #Funções cliente
@@ -116,8 +124,13 @@ def cliente_update(request, pk):
 
 def cliente_delete(request,pk):
     cliente=Cliente.objects.get(id=pk)
-    cliente.delete()
+    try:
+        cliente.delete()
+    except IntegrityError:
+        messages.error(request, 'Cliente Vinculado a uma Venda')
+        return redirect('cliente_list')
     return redirect('cliente_list')
+
 
 # Funções funcionário
 
@@ -168,7 +181,11 @@ def funcionario_update(request, pk):
 
 def funcionario_delete(request,pk):
     funcionario=Funcionario.objects.get(id=pk)
-    funcionario.delete()
+    try:
+        funcionario.delete()
+    except IntegrityError:
+        messages.error(request, 'Funcionário Vinculado a uma Venda')
+        return redirect('funcionario_list')
     return redirect('funcionario_list')
 
 # Funções unidade
@@ -222,7 +239,11 @@ def unidade_update(request,pk):
 
 def unidade_delete(request,pk):
     unidade=Unidade.objects.get(id=pk)
-    unidade.delete()
+    try:
+        unidade.delete()
+    except IntegrityError:
+        messages.error(request, 'Unidade Vinculado a um Produto')
+        return redirect('unidade_list')
     return redirect('unidade_list')
 
 # Funções Cargo
@@ -272,8 +293,13 @@ def cargo_update(request,pk):
 
 def cargo_delete(request,pk):
     cargo=Cargo.objects.get(id=pk)
-    cargo.delete()
+    try:
+        cargo.delete()
+    except IntegrityError:
+        messages.error(request, 'Cargo Vinculado a um Funcionário')
+        return redirect('cargo_list')
     return redirect('cargo_list')
+
 
 '''
 QUE DANADO É ISSO AQUI OMEEE ! ? ! ?
