@@ -26,10 +26,27 @@
         background:#fff;
         overflow:visible;
         background:rgba(255,255,255,0.0);
+
+    }
+
+    form
+    {
+        width: 60%;
+        margin-left: 30px;
+
     }
 
 
     </style>
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <!-- Script para ocultar a mensagem de erro ao excluir algo que tenha alguma relação-->
+    <script>
+        var segundos = 5; //Segundos
+        setTimeout(function(){
+            $('.alert-danger').fadeOut();
+        }, segundos*1000)
+    </script>
 
 </head>
 <body background="/static/images/dado.jpg">

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
+    <div class="corpo">
     <h2>Vendas</h2>
     {% for venda in vendas %}
         <h3>Venda: {{ venda.id }}</h3>
@@ -15,7 +16,7 @@
               <th>Quantidade</th>
               <th>Valor Unitário</th>
               <th>Subtotal</th>
-              <th>Total</th>
+
           </tr>
             {% for item in venda.vendaproduto_set.all %}
                <tr>
@@ -29,4 +30,5 @@
         </table>
         <h4>Total: {{venda.calculaValorTotal}}</h4>
     {% endfor %}
+    </div>
 {% endblock %}
