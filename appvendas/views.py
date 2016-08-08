@@ -31,7 +31,7 @@ def produto_list(request):
         produtos = Produto.objects.all().order_by('descricao')
         criterio = ""
         # Cria o mecanimos de paginação
-    paginator = Paginator(produtos, 2)
+    paginator = Paginator(produtos, 10)
     page = request.GET.get('page')
     try:
         produtos = paginator.page(page)
@@ -86,7 +86,7 @@ def cliente_list(request):
         clientes = Cliente.objects.all().order_by('nome')
         criterio = ""
     # Cria o mecanimos de paginação
-    paginator = Paginator(clientes, 2)
+    paginator = Paginator(clientes, 10)
     page = request.GET.get('page')
     try:
         clientes = paginator.page(page)
@@ -143,7 +143,7 @@ def funcionario_list(request):
         funcionarios = Funcionario.objects.all().order_by('nome')
         criterio = ""
     # Cria o mecanimos de paginação
-    paginator = Paginator(funcionarios, 2)
+    paginator = Paginator(funcionarios, 10)
     page = request.GET.get('page')
     try:
         funcionarios = paginator.page(page)
@@ -198,7 +198,7 @@ def unidade_list(request):
         unidades=Unidade.objects.all().order_by('descricao')
         criterio=""
     #Cria o mecanimos de paginação
-    paginator=Paginator(unidades,4)
+    paginator=Paginator(unidades,10)
     page=request.GET.get('page')
     try:
         unidades=paginator.page(page)
@@ -256,7 +256,7 @@ def cargo_list(request):
         cargos=Cargo.objects.all().order_by('descricao')
         criterio=""
     #Cria o mecanimos de paginação
-    paginator=Paginator(cargos,2)
+    paginator=Paginator(cargos,10)
     page=request.GET.get('page')
     try:
         cargos=paginator.page(page)
