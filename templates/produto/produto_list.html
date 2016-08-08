@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block conteudo %}
+    <div class="corpo">
     <h2>Produtos</h2>
         {% if messages %}
         {% for mensagem in messages %}
@@ -35,4 +36,5 @@
     {% endfor %}
 </table>
     {% include 'utils/paginacao.html' %}
+    </div>
     {% endblock %}

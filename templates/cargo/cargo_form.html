@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block conteudo %}
+    <div class="corpo">
     <h1 style="margin: 30px">{% if cargo %}Editar Cargo{% else %}Criar Cargo{% endif%}</h1>
 
     <form method="POST" role="form">
@@ -8,5 +9,5 @@
         {{ form.as_table }}
         <input type="submit" class="btn btn-primary" value="Salvar">
     </form>
-
+    </div>
 {% endblock %}
