@@ -1,6 +1,6 @@
-{% from appvendas.models import Cargos %}
 {% extends 'base.html' %}
 {% block conteudo %}
+
     <div class="corpo">
     <h1 style="margin: 30px">
         {% if funcionario %}
@@ -15,7 +15,9 @@
 {% if funcionario %}
 {% for field in form %}
     {% if field.name == "cargo" %}
-        <select class="form-control" id="cargo">
+        TENTAR POR O SELECT DENTRO DESSE IF, COM O VALOR ATUAL PREENCHIDO
+        <label class="control-label">{{ field.label }}</label>
+        <select class="form-control" id="cargo" name="{{ field.name }}">
             {% for cargo in cargos %}
                 <option >{{ cargo | upper }}</option>
             {% endfor %}
@@ -28,12 +30,19 @@
             value="{{ field.value }}">
         </fieldset>
     {% endif%}
-    {% endfor %}
-
+{% endfor %}
 {% else %}
+
     {% for field in form %}
     {% if field.name == "cargo" %}
-    Colocar select dos cargos aqui
+        TENTAR POR O SELECT DENTRO DESSE IF
+        <label class="control-label">{{ field.label }}</label>
+        {{ form.cargo}}
+        <select  class="form-control" id="cargo" name="{{ field.name }}">
+            {% for cargo in form.cargo %}
+
+            {% endfor %}
+        </select>
     {% else %}
         <fieldset class="form-group">
             <label class="control-label">{{ field.label }}</label>
