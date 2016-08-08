@@ -300,6 +300,11 @@ def cargo_delete(request,pk):
         return redirect('cargo_list')
     return redirect('cargo_list')
 
+def venda_list(request):
+    vendas=Venda.objects.all()
+    lista={'vendas':vendas}
+    return render (request,'venda/venda_list.html',lista)
+
 
 '''
 QUE DANADO É ISSO AQUI OMEEE ! ? ! ?

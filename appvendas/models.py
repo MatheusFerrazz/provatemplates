@@ -46,6 +46,7 @@ class Venda(models.Model):
     def __str__(self):
         return "{0:d}-{1:s}".format(self.id,self.dataVenda.strftime('%d/%m/%Y'))
 
+    @property
     def calculaValorTotal(self):
         lista=VendaProduto.objects.filter(venda=self) # Filtra os itens vinculados a esta venda
         #total=0
@@ -63,4 +64,3 @@ class VendaProduto(models.Model):
     @property
     def subtotal(self):
         return self.produto.valorUnitario*self.quantidade
-

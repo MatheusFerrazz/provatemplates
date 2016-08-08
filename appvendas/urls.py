@@ -31,7 +31,7 @@ urlpatterns=[
     url(r'^unidade/update/(?P<pk>\d+)$',unidade_update,name='unidade_update'),
     url(r'^unidade/delete/(?P<pk>\d+)$',unidade_delete,name='unidade_delete'),
 
-    url(r'^vendas/$',listarvendas,name='vendas'),
+    url(r'^venda/$',venda_list,name='venda_list'),
     url(r'^clientes/$',listarclientes,name='clientes'),
     url(r'^clientes/exibir/(\d+)$',exibircliente,name='exibircliente'),
 
