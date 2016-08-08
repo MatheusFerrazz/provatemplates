@@ -3,11 +3,29 @@
     <div class="corpo">
     <h1 style="margin: 30px">{% if cargo %}Editar Cargo{% else %}Criar Cargo{% endif%}</h1>
 
-    <form method="POST" role="form">
+    <form class="form-contact" action="" method="POST">
+{% csrf_token %}
+{% if cargo %}
+{% for field in form %}
+        <fieldset class="form-group">
+            <label class="control-label">{{ field.label }}</label>
+            <input type="text" class="form-control"
+            name="{{ field.name }}"
+            value="{{ field.value }}">
+    </fieldset>
+    {% endfor %}
 
-        {% csrf_token %}
-        {{ form.as_table }}
-        <input type="submit" class="btn btn-primary" value="Salvar">
+{% else %}
+    {% for field in form %}
+        <fieldset class="form-group">
+            <label class="control-label">{{ field.label }}</label>
+            <input type="text" class="form-control"
+            name="{{ field.name }}"
+            value="">
+    </fieldset>
+    {% endfor %}
+    {% endif%}
+        <input type="submit" value="Salvar"  class="btn btn-primary">
     </form>
-    </div>
+</div>
 {% endblock %}
