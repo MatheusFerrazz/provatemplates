@@ -15,13 +15,11 @@
 {% if funcionario %}
 {% for field in form %}
     {% if field.name == "cargo" %}
-        TENTAR POR O SELECT DENTRO DESSE IF, COM O VALOR ATUAL PREENCHIDO
+        <fieldset class="form-group">
         <label class="control-label">{{ field.label }}</label>
-        <select class="form-control" id="cargo" name="{{ field.name }}">
-            {% for cargo in cargos %}
-                <option >{{ cargo | upper }}</option>
-            {% endfor %}
-        </select>
+        {{ form.cargo}}
+        </fieldset>
+
     {% else %}
         <fieldset class="form-group">
             <label class="control-label">{{ field.label }}</label>
@@ -35,14 +33,10 @@
 
     {% for field in form %}
     {% if field.name == "cargo" %}
-        TENTAR POR O SELECT DENTRO DESSE IF
+        <fieldset class="form-group">
         <label class="control-label">{{ field.label }}</label>
         {{ form.cargo}}
-        <select  class="form-control" id="cargo" name="{{ field.name }}">
-            {% for cargo in form.cargo %}
-
-            {% endfor %}
-        </select>
+        </fieldset>
     {% else %}
         <fieldset class="form-group">
             <label class="control-label">{{ field.label }}</label>

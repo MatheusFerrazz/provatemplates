@@ -7,22 +7,36 @@
 {% csrf_token %}
 {% if produto %}
 {% for field in form %}
-        <fieldset class="form-group">
+            {% if field.name == "unidade" %}
+                <fieldset class="form-group">
+                <label class="control-label">{{ field.label }}</label>
+                {{ form.unidade}}
+                </fieldset>
+            {% else %}
+            <fieldset class="form-group">
             <label class="control-label">{{ field.label }}</label>
             <input type="text" class="form-control"
             name="{{ field.name }}"
             value="{{ field.value }}">
-    </fieldset>
+            </fieldset>
+            {% endif%}
     {% endfor %}
 
 {% else %}
     {% for field in form %}
+        {% if field.name == "unidade" %}
+            <fieldset class="form-group">
+                <label class="control-label">{{ field.label }}</label>
+                {{ form.unidade}}
+            </fieldset>
+        {% else %}
         <fieldset class="form-group">
             <label class="control-label">{{ field.label }}</label>
             <input type="text" class="form-control"
             name="{{ field.name }}"
             value="">
-    </fieldset>
+        </fieldset>
+        {% endif%}
     {% endfor %}
     {% endif%}
         <input type="submit" value="Salvar"  class="btn btn-primary">
