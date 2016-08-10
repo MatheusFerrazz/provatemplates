@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
 {% block conteudo %}
     <div class="corpo">
-        <h1 style="margin: 30px">{% if produto %}
-            Editar Produto{% else  %}
-            Criar Produto{% endif  %}
+        <h1 style="margin: 30px">{% if unidade %}
+            Editar Unidade{% else  %}
+            Criar Unidade{% endif  %}</h1>
 
        <form method="POST" role="form">
 {% csrf_token %}
-{% if produto %}
+{% if unidade %}
 {% for field in form %}
+
         <fieldset class="form-group">
             <label class="control-label">{{ field.label }}</label>
             <input type="text" class="form-control"
             name="{{ field.name }}"
             value="{{ field.value }}">
     </fieldset>
+
     {% endfor %}
 
 {% else %}
@@ -24,7 +26,7 @@
             <input type="text" class="form-control"
             name="{{ field.name }}"
             value="">
-    </fieldset>
+        </fieldset>
     {% endfor %}
     {% endif%}
         <input type="submit" value="Salvar"  class="btn btn-primary">

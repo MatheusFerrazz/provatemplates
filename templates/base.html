@@ -36,19 +36,162 @@
         width: 60%;
         margin-left: 30px;
     }
+
+
+
     </style>
+
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-    <!-- Script para ocultar a mensagem de erro ao excluir algo que tenha alguma relação-->
+    <script src="/static/js/jquery.maskedinput.min.js"></script>
+    <script src="/static/js/jquery.maskMoney.min.js"></script>
+
+
+
+
     <script>
+
+        //Aplicando máscaras em alguns campos
+        jQuery(function($){
+
+            $("#valorUnitario").maskMoney({decimal:".",thousands:"",allowZero: false, defaultZero: false, allowNegative: false}).trigger('mask.maskMoney');
+            $("#telefone").mask("(99) 9999-9999?9");
+            $("#matricula").mask("9?999999999");
+
+        });
+
+        //Validando formulário
+
+
+        <!-- Script para ocultar a mensagem de erro ao excluir algo que tenha alguma relação-->
         var segundos = 5; //Segundos
         setTimeout(function(){
             $('.alert-danger').fadeOut();
         }, segundos*1000)
 
+
         //Script para adicionar classes aos elementos
         window.onload = function(){
             $('select').addClass('form-control');
         }
+
+
+        //Script para validar email
+        function ValidateEmail(email) {
+            var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+            return expr.test(email);
+        };
+
+
+        $(document).ready(function()
+        {
+            //Limitando o tamanho dos caracteres de cada campo
+            $("[name=nome]").attr('maxlength','255');
+            $("[name=descricao]").attr('maxlength','150');
+            $("[name=email]").attr('maxlength','200');
+            $("[name=endereco]").attr('maxlength','255');
+            $("[name=matricula]").attr('maxlength','10');
+            $("[name=telefone]").attr('maxlength','11');
+            $("[name=sigla]").attr('maxlength','5');
+            $("[name=valorUnitario]").attr('maxlength','10');
+
+
+
+            //Script para validar campos vazios nos formulários
+            $('.error').hide();
+            $("input[type=submit]").click(function(e){
+
+                // bloqueando envio do form
+                e.preventDefault();
+
+                var email = 0;
+                var erros = 0;
+                var campo = "";
+
+                // verifica se ha campos vazios
+                $("input, select").each(function(){
+                    // conta erros
+                    $(this).val() == "" ? erros++ : "";
+                });
+
+
+                //Validando email
+                if( $("#email").length && $("#email").is(":visible")){
+                    if(!ValidateEmail($("#email").val()) && $("#email").val() != "")
+                    {
+
+                        email++;
+                        $("#email").css({"border" : "1px solid #F00", "padding": "2px"});
+                    }
+                }
+
+                // verifica se ha erros
+                if(erros > 0 ){
+                    alert("Existe "+erros+" campo(os) vazio(os) neste fomulário. Verifique!");
+                if(email > 0)
+                {
+                    alert("Email inválido!");
+                }
+                }else if(email == 0 && erros == 0){
+                    $("form").submit()
+                }
+
+            });
+
+
+
+            //Personalizando os campos vazios com CSS, para alertar.
+            $("input, select").blur(function(){
+
+                if($(this).val() == "")
+                {
+                    $(this).css({"border" : "1px solid #F00", "padding": "2px"});
+                }
+                else if($(this).attr('id') != "email"){
+                    $(this).css({"border" : "1px solid #cccccc", "padding": "2px"});
+                }
+                if (!ValidateEmail($("#email").val()) && $("#email").val() != "" && $("#email").is(":visible")) {
+                    alert("Email inválido!");
+                    $("#email").css({"border" : "1px solid #F00", "padding": "2px"});
+                }
+            });
+
+            $("input[type=submit]").click(function(e){
+
+                var cont = 0;
+                $("form input, select").each(function(){
+
+                    if($(this).val() == "")
+                    {
+                        $(this).css({"border" : "1px solid #F00", "padding": "2px"});
+                        cont++;
+                    }
+
+                });
+
+            });
+
+
+
+        });
+
+
+        $("input[type=text]").each(function(index) {
+            /** Utiliza por padrão o placeholder caso não encontre, utiliza o texto do label **/
+            var field = $(this).attr("placeholder") != null ? $(this).attr("placeholder") : $(this).parent().find("label").text();
+            $(this).rules("add", {
+                required : function(element) {
+                    if(!$(element).val().trim()) {
+                        $(element).val("");
+                        return true;
+                    }
+                    return false;
+                },
+                messages : {required : "Campo é de preenchimento obrigatório."}
+            });
+        });
+
+
+
 
     </script>
 </head>

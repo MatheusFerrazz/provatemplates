@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Unidade(models.Model):
-    descricao=models.CharField("Descrição",max_length=100)
+    descricao=models.CharField("Descrição",max_length=150)
     sigla=models.CharField("Sigla",max_length=5)
     def __str__(self):
         return "{0:s}-{1:s}".format(self.descricao,self.sigla)
@@ -16,7 +16,7 @@ class Cargo(models.Model):
 class Pessoa(models.Model):
     nome=models.CharField("Nome",max_length=255)
     email=models.EmailField("E-Mail",max_length=200)
-    telefone=models.CharField("Telefone",max_length=20)
+    telefone=models.CharField("Telefone",max_length=16)
 
     def __str__(self):
         return self.nome
@@ -30,7 +30,7 @@ class Funcionario(Pessoa):
     cargo=models.ForeignKey(Cargo,on_delete=models.PROTECT,verbose_name="Cargo")
 
 class Produto(models.Model):
-    descricao=models.CharField("Descrição",max_length=255)
+    descricao=models.CharField("Descrição",max_length=150)
     valorUnitario=models.DecimalField("Valor Unitário",max_digits=10,decimal_places=2)
     unidade=models.ForeignKey(Unidade,on_delete=models.PROTECT,verbose_name="Unidade")
 

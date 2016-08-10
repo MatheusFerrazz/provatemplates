@@ -10,7 +10,7 @@
         <fieldset class="form-group">
             <label class="control-label">{{ field.label }}</label>
             <input type="text" class="form-control"
-            name="{{ field.name }}"
+            name="{{ field.name }}" id="{{ field.name }}"
             value="{{ field.value }}">
     </fieldset>
     {% endfor %}
@@ -20,7 +20,7 @@
         <fieldset class="form-group">
             <label class="control-label">{{ field.label }}</label>
             <input type="text" class="form-control"
-            name="{{ field.name }}"
+            name="{{ field.name }}" id="{{ field.name }}"
             value="">
     </fieldset>
     {% endfor %}
