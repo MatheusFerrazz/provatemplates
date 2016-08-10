@@ -14,7 +14,6 @@
             value="{{ field.value }}">
     </fieldset>
     {% endfor %}
-
 {% else %}
     {% for field in form %}
         <fieldset class="form-group">
@@ -24,7 +23,13 @@
             value="">
     </fieldset>
     {% endfor %}
-    {% endif%}
+{% endif%}
+       <fieldset class="form-group vazio" style="display:none;color:#8B0000;font-weight: bold;">
+           <div>Campos vazios</div>
+       </fieldset>
+       <fieldset class="form-group emailErrado" style="display:none;color:#8B0000;font-weight: bold;">
+           <div>Email inválido</div>
+       </fieldset>
         <input type="submit" value="Salvar"  class="btn btn-primary">
     </form>
 </div>

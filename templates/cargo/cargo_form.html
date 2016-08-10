@@ -7,14 +7,13 @@
 {% csrf_token %}
 {% if cargo %}
 {% for field in form %}
-        <fieldset class="form-group">
+        <fieldset class="form-group" style="display:none">
             <label class="control-label">{{ field.label }}</label>
             <input type="text" class="form-control"
             name="{{ field.name }}" id="{{ field.name }}"
             value="{{ field.value }}">
-    </fieldset>
+        </fieldset>
     {% endfor %}
-
 {% else %}
     {% for field in form %}
         <fieldset class="form-group">
@@ -22,9 +21,12 @@
             <input type="text" class="form-control"
             name="{{ field.name }}" id="{{ field.name }}"
             value="">
-    </fieldset>
+        </fieldset>
     {% endfor %}
     {% endif%}
+        <fieldset class="form-group vazio" style="display:none;color:#8B0000;font-weight: bold;">
+            <div>Campos vazios</div>
+        </fieldset>
         <input type="submit" value="Salvar"  class="btn btn-primary">
     </form>
 </div>

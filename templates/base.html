@@ -115,25 +115,16 @@
 
 
                 //Validando email
-                if( $("#email").length && $("#email").is(":visible")){
-                    if(!ValidateEmail($("#email").val()) && $("#email").val() != "")
-                    {
-
-                        email++;
-                        $("#email").css({"border" : "1px solid #F00", "padding": "2px"});
-                    }
-                }
+                if (!ValidateEmail($("#email").val()) && $("#email").val() != "" && $("#email").is(":visible")) {
+                    email++;
+                    $('.emailErrado').show();
+                    $("#email").css({"border" : "1px solid #F00", "padding": "2px"});
+                } else if(ValidateEmail($("#email").val()) || $("#email").val() == "" && $("#email").is(":visible")){$('.emailErrado').hide();}
 
                 // verifica se ha erros
-                if(erros > 0 ){
-                    alert("Existe "+erros+" campo(os) vazio(os) neste fomulário. Verifique!");
-                if(email > 0)
-                {
-                    alert("Email inválido!");
-                }
-                }else if(email == 0 && erros == 0){
-                    $("form").submit()
-                }
+                if(erros > 0 ) { $('.vazio').show();    }
+                else {$('.vazio').hide();}
+                if(email == 0 && erros == 0){   $("form").submit()   }
 
             });
 
@@ -150,9 +141,9 @@
                     $(this).css({"border" : "1px solid #cccccc", "padding": "2px"});
                 }
                 if (!ValidateEmail($("#email").val()) && $("#email").val() != "" && $("#email").is(":visible")) {
-                    alert("Email inválido!");
+                    $('.emailErrado').show();
                     $("#email").css({"border" : "1px solid #F00", "padding": "2px"});
-                }
+                } else if(ValidateEmail($("#email").val()) || $("#email").val() == "" && $("#email").is(":visible")){$('.emailErrado').hide();}
             });
 
             $("input[type=submit]").click(function(e){

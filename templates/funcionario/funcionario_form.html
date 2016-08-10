@@ -29,6 +29,12 @@
         </fieldset>
     {% endif%}
 {% endfor %}
+    <fieldset class="form-group vazio" style="display:none">
+        <div>Campos vazios</div>
+    </fieldset>
+    <fieldset class="form-group emailErrado" style="display:none">
+        <div>Email inválido</div>
+    </fieldset>
 {% else %}
 
     {% for field in form %}
@@ -46,7 +52,13 @@
     </fieldset>
     {% endif%}
     {% endfor %}
-    {% endif%}
+{% endif%}
+        <fieldset class="form-group vazio" style="display:none;color:#8B0000;font-weight: bold;">
+            <div>Campos vazios</div>
+        </fieldset>
+        <fieldset class="form-group emailErrado" style="display:none;color:#8B0000;font-weight: bold;">
+            <div>Email inválido</div>
+        </fieldset>
         <input type="submit" value="Salvar"  class="btn btn-primary">
     </form>
 </div>
