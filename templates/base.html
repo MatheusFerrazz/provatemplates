@@ -41,7 +41,7 @@
 
     </style>
 
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="/static/js/jquery-3.1.0.min.js"></script>
     <script src="/static/js/jquery.maskedinput.min.js"></script>
     <script src="/static/js/jquery.maskMoney.min.js"></script>
 
@@ -59,7 +59,7 @@
 
         });
 
-        //Validando formulário
+
 
 
         <!-- Script para ocultar a mensagem de erro ao excluir algo que tenha alguma relação-->
@@ -81,7 +81,7 @@
             return expr.test(email);
         };
 
-
+        //Limitando o número de caracteres aos campos
         $(document).ready(function()
         {
             //Limitando o tamanho dos caracteres de cada campo
@@ -97,7 +97,6 @@
 
 
             //Script para validar campos vazios nos formulários
-            $('.error').hide();
             $("input[type=submit]").click(function(e){
 
                 // bloqueando envio do form
@@ -107,21 +106,21 @@
                 var erros = 0;
                 var campo = "";
 
-                // verifica se ha campos vazios
+                // Verifica se ha campos vazios
                 $("input, select").each(function(){
                     // conta erros
                     $(this).val() == "" ? erros++ : "";
                 });
 
 
-                //Validando email
+                //Chamando função para validar email
                 if (!ValidateEmail($("#email").val()) && $("#email").val() != "" && $("#email").is(":visible")) {
                     email++;
                     $('.emailErrado').show();
                     $("#email").css({"border" : "1px solid #F00", "padding": "2px"});
                 } else if(ValidateEmail($("#email").val()) || $("#email").val() == "" && $("#email").is(":visible")){$('.emailErrado').hide();}
 
-                // verifica se ha erros
+                // Verifica se há erros
                 if(erros > 0 ) { $('.vazio').show();    }
                 else {$('.vazio').hide();}
                 if(email == 0 && erros == 0){   $("form").submit()   }
@@ -130,7 +129,7 @@
 
 
 
-            //Personalizando os campos vazios com CSS, para alertar.
+            //Personalizando os campos vazios com CSS, para alertar. Chamado no momento em que os campos perderem o focu
             $("input, select").blur(function(){
 
                 if($(this).val() == "")
@@ -143,9 +142,13 @@
                 if (!ValidateEmail($("#email").val()) && $("#email").val() != "" && $("#email").is(":visible")) {
                     $('.emailErrado').show();
                     $("#email").css({"border" : "1px solid #F00", "padding": "2px"});
-                } else if(ValidateEmail($("#email").val()) || $("#email").val() == "" && $("#email").is(":visible")){$('.emailErrado').hide();}
+                } else if(ValidateEmail($("#email").val()) || $("#email").val() == "" && $("#email").is(":visible")){
+                    $('.emailErrado').hide();
+                    $('#email').css({"border" : "1px solid #cccccc", "padding": "2px"});
+                }
             });
 
+            //Personalizando os campos vazios com CSS, para alertar. Chamando quando o formulário for submetido
             $("input[type=submit]").click(function(e){
 
                 var cont = 0;
